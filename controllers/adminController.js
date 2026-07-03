@@ -215,6 +215,108 @@ const deleteProject = async (req, res) => {
     }
 
 };
+const getUserProjects = async (req, res) => {
+
+    try {
+
+        const projects = await Project.find({
+
+            owner: req.params.id
+
+        })
+
+            .populate("owner", "username email")
+
+            .sort({ createdAt: -1 });
+
+        res.json({
+
+            success: true,
+
+            projects
+
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Internal Server Error"
+
+        });
+
+    }
+
+};
+
+const getProjectTasks = async (req, res) => {
+
+    try {
+
+        const tasks = await Task.find({
+
+            project: req.params.id
+
+        }).sort({ createdAt: -1 });
+
+        res.json({
+
+            success: true,
+
+            tasks
+
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Internal Server Error"
+
+        });
+
+    }
+
+};
+
+const deleteTaskAdmin = async (req, res) => {
+
+    try {
+
+        await Task.findByIdAndDelete(req.params.id);
+
+        res.json({
+
+            success: true,
+
+            message: "Task Deleted"
+
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Internal Server Error"
+
+        });
+
+    }
+
+};
+
 module.exports = {
 
     adminDashboard,
@@ -222,7 +324,15 @@ module.exports = {
     getAllUsers,
 
     deleteUser,
+
     getAllProjects,
+
     deleteProject,
+
+    getUserProjects,
+
+    getProjectTasks,
+
+    deleteTaskAdmin,
 
 };
