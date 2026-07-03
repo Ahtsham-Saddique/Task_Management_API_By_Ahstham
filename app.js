@@ -9,6 +9,7 @@ const authMiddleware = require("./middleware/authMiddleware");
 const projectRoutes = require("./routes/projectRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const viewRoutes = require("./routes/viewRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 
 
@@ -21,6 +22,7 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
 app.use("/", viewRoutes);
+app.use("/admin", adminRoutes);
 
 // Register Routes
 app.use("/auth", authRoutes);
