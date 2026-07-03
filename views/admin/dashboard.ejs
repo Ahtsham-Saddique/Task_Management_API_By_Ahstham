@@ -2,133 +2,57 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
 
-<meta charset="UTF-8">
-
-<title>Admin Dashboard</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-blue-700 text-white p-5 shadow">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Admin Dashboard</h1>
 
-<nav class="bg-blue-700 text-white p-5">
+            <div>
+                Welcome, <b><%= user.username %></b>
+                |
+                <a href="/auth/logout" class="text-red-300 hover:text-red-100">Logout</a>
+            </div>
+        </div>
+    </nav>
 
-<div class="max-w-7xl mx-auto flex justify-between">
+    <div class="max-w-7xl mx-auto mt-10 px-5">
+        <!-- Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow p-8 text-center">
+                <h2 class="text-xl font-bold">Total Users</h2>
+                <p class="text-5xl mt-5 text-blue-600"><%= totalUsers %></p>
+            </div>
 
-<h1 class="text-3xl font-bold">
+            <div class="bg-white rounded-lg shadow p-8 text-center">
+                <h2 class="text-xl font-bold">Total Projects</h2>
+                <p class="text-5xl mt-5 text-green-600"><%= totalProjects %></p>
+            </div>
 
-Admin Dashboard
+            <div class="bg-white rounded-lg shadow p-8 text-center">
+                <h2 class="text-xl font-bold">Total Tasks</h2>
+                <p class="text-5xl mt-5 text-red-600"><%= totalTasks %></p>
+            </div>
+        </div>
 
-</h1>
-
-<div>
-
-Welcome,
-
-<b><%= user.name %></b>
-
-|
-
-<a
-href="/auth/logout"
-class="text-red-300">
-
-Logout
-
-</a>
-
-</div>
-
-</div>
-
-</nav>
-
-
-<div class="max-w-7xl mx-auto mt-10 grid grid-cols-3 gap-8">
-
-<div class="bg-white rounded shadow p-8 text-center">
-
-<h2 class="text-xl font-bold">
-
-Users
-
-</h2>
-
-<p class="text-5xl mt-5 text-blue-600">
-
-<%= totalUsers %>
-
-</p>
-
-</div>
-<hr class="my-10">
-
-<h2 class="text-3xl font-bold mb-6">
-
-All Projects
-
-</h2>
-
-<div
-id="projectsContainer"
-class="space-y-5">
-
-</div>
-
-
-<div class="bg-white rounded shadow p-8 text-center">
-
-<h2 class="text-xl font-bold">
-
-Projects
-
-</h2>
-
-<p class="text-5xl mt-5 text-green-600">
-
-<%= totalProjects %>
-
-</p>
-
-</div>
-
-
-<div class="bg-white rounded shadow p-8 text-center">
-
-<h2 class="text-xl font-bold">
-
-Tasks
-
-</h2>
-
-<p class="text-5xl mt-5 text-red-600">
-
-<%= totalTasks %>
-
-</p>
-
-</div>
-
-<div class="max-w-7xl mx-auto mt-10">
-
-    <h2 class="text-3xl font-bold mb-6">
-
-        Registered Users
-
-    </h2>
-
-    <div id="usersContainer" class="space-y-4">
+        <!-- Registered Users + Actions -->
+        <div class="mt-12">
+            <h2 class="text-3xl font-bold mb-6">Registered Users</h2>
+            <div id="usersContainer" class="space-y-4"></div>
+        </div>
 
     </div>
+    
 
-</div>
-
-<script src="/static/js/admin.js"></script>
-
-</div>
-
+    <script src="/static/js/admin.js"></script>
 </body>
 
 </html>
+
