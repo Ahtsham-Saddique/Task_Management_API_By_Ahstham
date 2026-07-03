@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
+const adminController = require("../controllers/adminController");
 
 // Login Page
 router.get("/login", (req, res) => {
@@ -48,21 +49,11 @@ router.get(
 
     }
 );
-router.get("/admin/dashboard", pageAuthMiddleware, (req, res) => {
-
-    if (req.user.role !== "admin") {
-
-        return res.status(403).send("Access Denied");
-
-    }
-
-    res.render("admin/dashboard", {
-
-        user: req.user
-
-    });
-
-});
+router.get(
+    "/admin/dashboard",
+    pageAuthMiddleware,
+    adminController.adminDashboard
+);
 
 
 module.exports = router;

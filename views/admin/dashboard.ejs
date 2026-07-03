@@ -3,46 +3,129 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+<meta charset="UTF-8">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<title>Admin Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body class="bg-gray-100">
 
-<div class="max-w-6xl mx-auto mt-10">
+<nav class="bg-blue-700 text-white p-5">
 
-    <h1 class="text-4xl font-bold text-blue-600">
+<div class="max-w-7xl mx-auto flex justify-between">
 
-        Admin Dashboard
+<h1 class="text-3xl font-bold">
 
-    </h1>
+Admin Dashboard
 
-    <p class="mt-4 text-lg">
+</h1>
 
-        Welcome,
+<div>
 
-        <b><%= user.name %></b>
+Welcome,
 
-    </p>
+<b><%= user.name %></b>
 
-    <p class="mt-2">
+|
 
-        Role:
+<a
+href="/auth/logout"
+class="text-red-300">
 
-        <b><%= user.role %></b>
+Logout
 
-    </p>
+</a>
 
-    <a
-        href="/auth/logout"
-        class="inline-block mt-8 bg-red-600 text-white px-5 py-3 rounded">
+</div>
 
-        Logout
+</div>
 
-    </a>
+</nav>
+
+
+<div class="max-w-7xl mx-auto mt-10 grid grid-cols-3 gap-8">
+
+<div class="bg-white rounded shadow p-8 text-center">
+
+<h2 class="text-xl font-bold">
+
+Users
+
+</h2>
+
+<p class="text-5xl mt-5 text-blue-600">
+
+<%= totalUsers %>
+
+</p>
+
+</div>
+<hr class="my-10">
+
+<h2 class="text-3xl font-bold mb-6">
+
+All Projects
+
+</h2>
+
+<div
+id="projectsContainer"
+class="space-y-5">
+
+</div>
+
+
+<div class="bg-white rounded shadow p-8 text-center">
+
+<h2 class="text-xl font-bold">
+
+Projects
+
+</h2>
+
+<p class="text-5xl mt-5 text-green-600">
+
+<%= totalProjects %>
+
+</p>
+
+</div>
+
+
+<div class="bg-white rounded shadow p-8 text-center">
+
+<h2 class="text-xl font-bold">
+
+Tasks
+
+</h2>
+
+<p class="text-5xl mt-5 text-red-600">
+
+<%= totalTasks %>
+
+</p>
+
+</div>
+
+<div class="max-w-7xl mx-auto mt-10">
+
+    <h2 class="text-3xl font-bold mb-6">
+
+        Registered Users
+
+    </h2>
+
+    <div id="usersContainer" class="space-y-4">
+
+    </div>
+
+</div>
+
+<script src="/static/js/admin.js"></script>
 
 </div>
 
