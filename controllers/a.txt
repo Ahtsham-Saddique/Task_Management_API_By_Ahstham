@@ -1,0 +1,356 @@
+Good. Now test them in the same order that a real application works. Don't jump to random endpoints because some depend on data created by earlier requests.
+
+# Testing Order
+
+```text
+1. Register
+2. Login
+3. Create Project
+4. Get All Projects
+5. Get Single Project
+6. Update Project
+7. Create Task
+8. Get Tasks
+9. Update Task
+10. Delete Task
+11. Delete Project
+```
+
+---
+
+# 1. Register
+
+### Method
+
+```
+POST
+```
+
+### URL
+
+```
+http://localhost:3000/auth/register
+```
+
+### Body (raw → JSON)
+
+```json
+{
+    "username":"ahtsham123",
+    "name":"Ahtsham Saddique",
+    "age":22,
+    "email":"ahtsham@gmail.com",
+    "password":"123456"
+}
+```
+
+### Expected
+
+```
+201 Created
+```
+
+If it works
+
+✔ Save Request
+
+---
+
+# 2. Login
+
+### Method
+
+```
+POST
+```
+
+### URL
+
+```
+http://localhost:3000/auth/login
+```
+
+### Body
+
+```json
+{
+    "email":"ahtsham@gmail.com",
+    "password":"123456"
+}
+```
+
+### Expected
+
+```
+200 OK
+```
+
+Check
+
+```
+Cookies
+```
+
+You should see
+
+```
+token
+```
+
+If yes
+
+✔ Save Request
+
+---
+
+# 3. Create Project
+
+### Method
+
+```
+POST
+```
+
+### URL
+
+```
+http://localhost:3000/projects
+```
+
+### Body
+
+```json
+{
+    "title":"Task Management API",
+    "stack":"Node Express MongoDB",
+    "instruction":"Complete before internship",
+    "deadline":"2026-07-20"
+}
+```
+
+Expected
+
+```
+201 Created
+```
+
+MongoDB should now contain one project.
+
+Save.
+
+Also copy the project's `_id`. You'll use it in later requests.
+
+---
+
+# 4. Get All Projects
+
+```
+GET
+```
+
+```
+http://localhost:3000/projects
+```
+
+Expected
+
+One project returned.
+
+Save.
+
+---
+
+# 5. Get Single Project
+
+```
+GET
+```
+
+```
+http://localhost:3000/projects/{{projectId}}
+```
+
+Replace `{{projectId}}` with the actual ID for now, or create a Postman variable later.
+
+Expected
+
+One project.
+
+Save.
+
+---
+
+# 6. Update Project
+
+```
+PUT
+```
+
+```
+http://localhost:3000/projects/{{projectId}}
+```
+
+Body
+
+```json
+{
+    "title":"Updated Task API"
+}
+```
+
+Expected
+
+Updated project returned.
+
+Save.
+
+---
+
+# 7. Create Task
+
+```
+POST
+```
+
+```
+http://localhost:3000/tasks/{{projectId}}
+```
+
+Body
+
+```json
+{
+    "taskName":"Build Login API",
+    "description":"Implement JWT Authentication",
+    "completed":false
+}
+```
+
+Expected
+
+Task created.
+
+Copy the task `_id`.
+
+Save.
+
+---
+
+# 8. Get Tasks
+
+```
+GET
+```
+
+```
+http://localhost:3000/tasks/{{projectId}}
+```
+
+Expected
+
+List of tasks.
+
+Save.
+
+---
+
+# 9. Update Task
+
+```
+PUT
+```
+
+```
+http://localhost:3000/tasks/{{taskId}}
+```
+
+Body
+
+```json
+{
+    "completed":true
+}
+```
+
+Expected
+
+Task updated.
+
+Save.
+
+---
+
+# 10. Delete Task
+
+```
+DELETE
+```
+
+```
+http://localhost:3000/tasks/{{taskId}}
+```
+
+Expected
+
+```
+Task Deleted
+```
+
+Save.
+
+---
+
+# 11. Delete Project
+
+```
+DELETE
+```
+
+```
+http://localhost:3000/projects/{{projectId}}
+```
+
+Expected
+
+```
+Project Deleted
+```
+
+Verify in MongoDB:
+
+* Project removed ✅
+* Tasks removed (cascade delete) ✅
+
+Save.
+
+---
+
+# Before starting
+
+I need to know your route names because earlier we created them together, but you may have changed them.
+
+Please paste these four route files:
+
+* `routes/authRoutes.js`
+* `routes/projectRoutes.js`
+* `routes/taskRoutes.js`
+* `app.js`
+
+I want to verify that the URLs above (`/auth/register`, `/projects`, `/tasks`, etc.) exactly match your implementation before you spend time testing.
+const hashedPassword = await bcrypt.hash("admin123", 10);
+
+        await User.create({
+
+            username: "admin",
+
+            name: "Administrator",
+
+            age: 25,
+
+            email: "admin@gmail.com",
+
+            password: hashedPassword,
+
+            role: "admin"
+
+        });
