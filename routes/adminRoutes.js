@@ -33,4 +33,26 @@ router.get(
     adminMiddleware,
     adminController.getAllProjects
 );
+
+router.get(
+    "/users/:id/projects",
+    pageAuthMiddleware,
+    adminMiddleware,
+    adminController.getUserProjects
+);
+
+router.get(
+    "/projects/:id/tasks",
+    pageAuthMiddleware,
+    adminMiddleware,
+    adminController.getProjectTasks
+);
+
+router.delete(
+    "/tasks/:id",
+    pageAuthMiddleware,
+    adminMiddleware,
+    adminController.deleteTaskAdmin
+);
+
 module.exports = router;
