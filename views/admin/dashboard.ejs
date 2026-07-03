@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100">
+
+<div class="max-w-6xl mx-auto mt-10">
+
+    <h1 class="text-4xl font-bold text-blue-600">
+
+        Admin Dashboard
+
+    </h1>
+
+    <p class="mt-4 text-lg">
+
+        Welcome,
+
+        <b><%= user.name %></b>
+
+    </p>
+
+    <p class="mt-2">
+
+        Role:
+
+        <b><%= user.role %></b>
+
+    </p>
+
+    <a
+        href="/auth/logout"
+        class="inline-block mt-8 bg-red-600 text-white px-5 py-3 rounded">
+
+        Logout
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

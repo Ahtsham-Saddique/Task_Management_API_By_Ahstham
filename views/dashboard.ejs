@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+
+    <nav class="bg-blue-600 text-white p-4 shadow">
+
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+
+            <h1 class="text-2xl font-bold">
+                Task Management System
+            </h1>
+
+            <div class="flex items-center gap-5">
+
+                <span class="font-semibold">
+                    Welcome,
+                    <%= user.name %>
+                </span>
+
+                <a href="/auth/logout"
+                    class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Main Content -->
+
+    <div class="max-w-7xl mx-auto mt-10 px-5">
+
+        <div class="flex justify-between items-center mb-8">
+
+            <h2 class="text-3xl font-bold">
+
+                My Projects
+
+            </h2>
+
+            <button
+                id="openModal"
+                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded">
+
+                + Create Project
+
+            </button>
+
+        </div>
+
+
+        <!-- Projects Will Come Here -->
+
+        <div
+            id="projectsContainer"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Create Project Modal -->
+
+    <div
+        id="projectModal"
+        class="fixed inset-0 bg-black/50 hidden justify-center items-center">
+
+        <div class="bg-white w-[500px] rounded-lg p-6">
+
+            <h2 class="text-2xl font-bold mb-5">
+
+                Create Project
+
+            </h2>
+
+            <form id="projectForm">
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Project Title"
+                    class="border w-full p-3 rounded mb-4"
+                    required>
+
+                <input
+                    type="text"
+                    name="stack"
+                    placeholder="Technology Stack"
+                    class="border w-full p-3 rounded mb-4"
+                    required>
+
+                <textarea
+                    name="instruction"
+                    placeholder="Instructions"
+                    class="border w-full p-3 rounded mb-4"
+                    rows="4"
+                    required></textarea>
+
+                <input
+                    type="date"
+                    name="deadline"
+                    class="border w-full p-3 rounded mb-6"
+                    required>
+
+                <div class="flex justify-end gap-3">
+
+                    <button
+                        type="button"
+                        id="closeModal"
+                        class="bg-gray-500 text-white px-5 py-2 rounded">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="bg-blue-600 text-white px-5 py-2 rounded">
+
+                        Save Project
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="/static/js/dashboard.js"></script>
+
+</body>
+
+</html>
