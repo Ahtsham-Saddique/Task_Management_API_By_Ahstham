@@ -51,17 +51,17 @@ async function loadUsers() {
 }
 
 loadUsers();
-async function loadProjects() {
-
-    const response = await fetch("/admin/projects");
-
-    const data = await response.json();
+async function renderProjects(projects) {
 
     const container = document.getElementById("projectsContainer");
 
+    const projectsHint = document.getElementById("projectsHint");
+
     container.innerHTML = "";
 
-    data.projects.forEach(project => {
+    if (projectsHint) projectsHint.classList.add("hidden");
+
+    projects.forEach(project => {
 
         container.innerHTML += `
 
@@ -79,7 +79,7 @@ Owner :
 
 <b>
 
-${project.owner.username}
+${project.owner?.username || ""}
 
 </b>
 
@@ -87,7 +87,7 @@ ${project.owner.username}
 
 <p>
 
-${project.owner.email}
+${project.owner?.email || ""}
 
 </p>
 
@@ -95,7 +95,7 @@ ${project.owner.email}
 
 Stack :
 
-${project.stack}
+${project.stack || ""}
 
 </p>
 
@@ -103,7 +103,7 @@ ${project.stack}
 
 Deadline :
 
-${new Date(project.deadline).toLocaleDateString()}
+${project.deadline ? new Date(project.deadline).toLocaleDateString() : ""}
 
 </p>
 
@@ -139,7 +139,39 @@ Delete
 
 }
 
-loadProjects();
+async function loadProjectsForAllUsers() {
+
+    const response = await fetch("/admin/projects");
+
+    const data = await response.json();
+
+    if (!data.success) return;
+
+    renderProjects(data.projects);
+
+}
+
+loadProjectsForAllUsers();
+
+async function viewUserProjects(userId) {
+
+    const response = await fetch(`/admin/users/${userId}/projects`);
+
+    const data = await response.json();
+
+    if (!data.success) {
+
+        alert(data.message || "Failed to load user projects");
+
+        return;
+
+    }
+
+    renderProjects(data.projects);
+
+}
+
+
 async function deleteUser(id) {
 
     const confirmDelete = confirm("Delete this user?");
@@ -180,8 +212,10 @@ async function deleteProject(id) {
     const data = await response.json();
 
     if (data.success) {
+        if(data.s)
 
-        loadProjects();
+        loadProjectsForAllUsers();
+
 
     } else {
 
@@ -200,18 +234,7 @@ async function viewTasks(projectId) {
 
     const projectsContainer = document.getElementById("projectsContainer");
 
-    const userIdToProjectOwner = (data?.tasks && data.tasks.length > 0) ? "" : "";
-
-    // Replace projectsContainer with a simple tasks list for the selected project
-
     if (!data.success) {
-
-
-
-
-
-
-
 
         alert(data.message || "Failed to load tasks");
 
@@ -255,7 +278,7 @@ async function viewTasks(projectId) {
 
             <button
 
-                onclick="location.reload()"
+                onclick="loadProjectsForAllUsers()"
 
                 class="bg-gray-700 text-white px-4 py-2 rounded">
 
@@ -273,6 +296,7 @@ async function viewTasks(projectId) {
 
 async function deleteTask(taskId) {
 
+
     if (!confirm("Delete this task?")) return;
 
     const response = await fetch(`/admin/tasks/${taskId}`, {
@@ -285,9 +309,7 @@ async function deleteTask(taskId) {
 
     if (data.success) {
 
-        // Reload current tasks view by triggering a projects reload
-
-        loadProjects();
+        loadProjectsForAllUsers();
 
     } else {
 

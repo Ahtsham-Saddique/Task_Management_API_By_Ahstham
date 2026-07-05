@@ -1,13 +1,11 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
-
 const authMiddleware = async (req, res, next) => {
 
     try {
 
         // Read Token From Cookie
         const token = req.cookies.token;
-
         if (!token) {
 
             return res.status(401).json({
@@ -48,7 +46,7 @@ const authMiddleware = async (req, res, next) => {
         return res.status(401).json({
 
             success: false,
-            message: "Invalid Token"
+            message: "Invalid Token",
 
         });
 
