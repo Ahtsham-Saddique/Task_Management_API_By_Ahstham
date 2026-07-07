@@ -78,5 +78,7 @@ router.delete(
     pageAuthMiddleware,
     adminMiddleware,
     adminController.deleteTaskAdmin
+);
+
 
 module.exports = router;

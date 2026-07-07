@@ -10,43 +10,50 @@ async function loadUsers() {
 
     data.users.forEach(user => {
 
-        usersContainer.innerHTML += `
+    // Skip Admin (or any non-user role)
+    if (user.role !== "user") return;
 
-        <div class="bg-white rounded shadow p-5 flex justify-between items-center">
+    usersContainer.innerHTML += `
 
-            <div>
+    <div class="bg-white rounded shadow p-5 flex justify-between items-center">
 
-                <h2 class="text-xl font-bold">
+        <div>
 
-                    ${user.username}
+            <h2 class="text-xl font-bold">
+                ${user.username}
+            </h2>
 
-                </h2>
+            <p>${user.email}</p>
 
-                <p>${user.email}</p>
-
-                <p>${user.role}</p>
-
-            </div>
-
-            <div class="flex gap-3">
-                <button
-                    onclick="viewUserProjects('${user._id}')"
-                    class="bg-blue-600 text-white px-5 py-2 rounded">
-                    View Projects
-                </button>
-                <button
-                    onclick="deleteUser('${user._id}')"
-                    class="bg-red-600 text-white px-5 py-2 rounded">
-                    Delete
-                </button>
-            </div>
-
+            <p>${user.role}</p>
 
         </div>
 
-        `;
+        <div class="flex gap-3">
 
-    });
+            <button
+                onclick="viewUserProjects('${user._id}')"
+                class="bg-blue-600 text-white px-5 py-2 rounded">
+
+                View Projects
+
+            </button>
+
+            <button
+                onclick="deleteUser('${user._id}')"
+                class="bg-red-600 text-white px-5 py-2 rounded">
+
+                Delete
+
+            </button>
+
+        </div>
+
+    </div>
+
+    `;
+
+});
 
 }
 
