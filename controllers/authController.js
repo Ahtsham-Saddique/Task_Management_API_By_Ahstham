@@ -87,7 +87,7 @@ const loginUser = async (req, res) => {
 
                 success: false,
                 message: "Invalid Email or Password"
-
+                
             });
 
         }
@@ -140,7 +140,14 @@ const loginUser = async (req, res) => {
 
 const logoutUser = (req, res) => {
 
+    // Clear cookie across common attribute variations.
+    // Browsers will keep the cookie if the delete call doesn't match the original cookie attributes.
     res.clearCookie("token");
+    res.clearCookie("token", { path: "/" });
+    res.clearCookie("token", { httpOnly: true, path: "/" });
+
+    // Also remove any cookie value by overwriting (defensive; does not affect login/register flows).
+    res.cookie("token", "", { httpOnly: true, path: "/", maxAge: 0 });
 
     res.redirect("/login");
 
