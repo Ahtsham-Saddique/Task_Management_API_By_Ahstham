@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const methodOverride = require("method-override");
 
 const authRoutes = require("./routes/authRoutes");
 const authMiddleware = require("./middleware/authMiddleware");
@@ -11,11 +12,11 @@ const taskRoutes = require("./routes/taskRoutes");
 const viewRoutes = require("./routes/viewRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.use(cookieParser());
+
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 
