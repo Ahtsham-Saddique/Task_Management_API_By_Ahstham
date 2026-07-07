@@ -56,6 +56,15 @@ router.get(
 );
 
 
+
+// Admin: show tasks for a project (new page)
+router.get(
+    "/admin/projects/:id/tasks",
+    pageAuthMiddleware,
+    adminController.getProjectTasksPage
+);
+
 module.exports = router;
+
 
 
