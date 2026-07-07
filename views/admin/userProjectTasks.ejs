@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Project Tasks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-blue-700 text-white p-4 shadow">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Admin - Project Tasks</h1>
+      <div class="flex items-center gap-4">
+        <a href="/admin/dashboard" class="bg-white text-blue-700 px-4 py-2 rounded font-semibold">Back</a>
+        <a href="/auth/logout" class="text-red-200 hover:text-red-100">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-5 mt-8">
+    <div class="mb-6">
+      <h2 class="text-3xl font-bold">Project: <%= project.title %></h2>
+      <p class="text-gray-700 mt-1">Owner: <%= project.owner?.username %> (<%= project.owner?.email %>)</p>
+    </div>
+
+    <div class="space-y-5">
+      <% if (tasks && tasks.length) { %>
+      <% tasks.forEach(task => { %>
+      <div class="bg-white rounded shadow p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 class="text-xl font-bold"><%= task.taskName %></h3>
+            <p class="mt-2 text-gray-700"><%= task.description || '' %></p>
+            <p class="mt-3 font-semibold">
+              Status: <%= task.completed ? '✅ Completed' : '⏳ Pending' %>
+            </p>
+          </div>
+          <div>
+            <form action="/admin/tasks/<%= task._id %>" method="POST" onsubmit="return confirm('Delete this task?')">
+              <input type="hidden" name="_method" value="DELETE" />
+              <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded" type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+      <% } else { %>
+      <div class="bg-white rounded shadow p-6 text-gray-700">No tasks found for this project.</div>
+      <% } %>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
