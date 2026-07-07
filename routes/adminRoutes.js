@@ -19,6 +19,18 @@ router.delete(
     adminController.deleteProject
 );
 
+// Fallback for cases where the client sends POST (e.g. method-override not applied)
+// Only allow deletion if the request explicitly indicates DELETE.
+router.post(
+    "/projects/:id",
+    pageAuthMiddleware,
+    adminMiddleware,
+    (req, res, next) => {
+        if (req.body && req.body._method === "DELETE") return next();
+        return res.status(405).json({ success: false, message: "Method Not Allowed" });
+    },
+    adminController.deleteProject
+);
 
 router.delete(
     "/users/:id",
@@ -26,6 +38,7 @@ router.delete(
      adminMiddleware,
     adminController.deleteUser
 );
+
 
 router.get(
     "/projects",
@@ -38,8 +51,9 @@ router.get(
     "/users/:id/projects",
     pageAuthMiddleware,
     adminMiddleware,
-    adminController.getUserProjects
+    adminController.getUserProjectsPage
 );
+
 
 router.get(
     "/projects/:id/tasks",
@@ -48,11 +62,21 @@ router.get(
     adminController.getProjectTasks
 );
 
+router.post(
+    "/tasks/:id",
+    pageAuthMiddleware,
+    adminMiddleware,
+    (req, res, next) => {
+        if (req.body && req.body._method === "DELETE") return next();
+        return res.status(405).json({ success: false, message: "Method Not Allowed" });
+    },
+    adminController.deleteTaskAdmin
+);
+
 router.delete(
     "/tasks/:id",
     pageAuthMiddleware,
     adminMiddleware,
     adminController.deleteTaskAdmin
-);
 
 module.exports = router;

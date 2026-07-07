@@ -155,21 +155,10 @@ loadProjectsForAllUsers();
 
 async function viewUserProjects(userId) {
 
-    const response = await fetch(`/admin/users/${userId}/projects`);
-
-    const data = await response.json();
-
-    if (!data.success) {
-
-        alert(data.message || "Failed to load user projects");
-
-        return;
-
-    }
-
-    renderProjects(data.projects);
-
+    // This route renders an EJS page (not JSON), so just navigate.
+    window.location.href = `/admin/users/${userId}/projects`;
 }
+
 
 
 async function deleteUser(id) {
@@ -228,71 +217,12 @@ async function deleteProject(id) {
 
 async function viewTasks(projectId) {
 
-    const response = await fetch(`/admin/projects/${projectId}/tasks`);
+    // Navigate to the server-rendered EJS tasks page instead of rendering JSON.
 
-    const data = await response.json();
-
-    const projectsContainer = document.getElementById("projectsContainer");
-
-    if (!data.success) {
-
-        alert(data.message || "Failed to load tasks");
-
-        return;
-
-    }
-
-    const tasksHtml = data.tasks.map(task => `
-
-        <div class="bg-white rounded shadow p-5">
-
-            <h2 class="text-xl font-bold">${task.taskName}</h2>
-
-            <p class="mt-2">${task.description || ""}</p>
-
-            <p class="mt-3">Status: ${task.completed ? "✅ Completed" : "⏳ Pending"}</p>
-
-            <div class="mt-5 flex gap-3">
-
-                <button
-
-                    onclick="deleteTask('${task._id}')"
-
-                    class="bg-red-600 text-white px-4 py-2 rounded">
-
-                    Delete
-
-                </button>
-
-            </div>
-
-        </div>
-
-    `).join("");
-
-    projectsContainer.innerHTML = `
-
-        <div class="flex items-center justify-between mb-6">
-
-            <h2 class="text-3xl font-bold">Project Tasks</h2>
-
-            <button
-
-                onclick="loadProjectsForAllUsers()"
-
-                class="bg-gray-700 text-white px-4 py-2 rounded">
-
-                Back
-
-            </button>
-
-        </div>
-
-        <div class="space-y-5">${tasksHtml}</div>
-
-    `;
+    window.location.href = `/admin/projects/${projectId}/tasks`;
 
 }
+
 
 async function deleteTask(taskId) {
 
