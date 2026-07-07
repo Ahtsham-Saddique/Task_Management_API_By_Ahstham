@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Projects</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-blue-700 text-white p-4 shadow">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Admin - User Projects</h1>
+      <div class="flex items-center gap-4">
+        <span class="hidden md:inline">Welcome, <b><%= user.username %></b></span>
+        <a href="/auth/logout" class="text-red-200 hover:text-red-100">Logout</a>
+        <a href="/admin/dashboard" class="bg-white text-blue-700 px-4 py-2 rounded font-semibold">Back</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-5 mt-8">
+    <div class="mb-6">
+      <h2 class="text-3xl font-bold mb-2"><%= targetUser.username %>’s Projects</h2>
+      <p class="text-gray-700">Email: <%= targetUser.email %> | Role: <%= targetUser.role %></p>
+    </div>
+
+    <div class="space-y-5">
+      <% if (projects && projects.length) { %>
+      <% projects.forEach(project => { %>
+      <div class="bg-white rounded shadow p-5">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 class="text-2xl font-bold"><%= project.title %></h3>
+            <p class="mt-2"><b>Stack:</b> <%= project.stack %></p>
+            <p class="mt-1"><b>Instruction:</b> <%= project.instruction %></p>
+            <p class="mt-1"><b>Deadline:</b>
+              <%= project.deadline ? new Date(project.deadline).toLocaleDateString() : '' %>
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-5 flex gap-3 justify-end">
+          <a href="/admin/projects/<%= project._id %>/tasks" class="bg-blue-600 text-white px-5 py-2 rounded">
+            View Tasks
+          </a>
+
+          <form action="/admin/projects/<%= project._id %>" method="POST" onsubmit="return confirm('Delete this project?')">
+            <input type="hidden" name="_method" value="DELETE" />
+            <button type="submit" class="bg-red-600 text-white px-5 py-2 rounded" type="submit">Delete</button>
+          </form>
+        </div>
+        <% }) %>
+      <% } else { %>
+      <div class="bg-white rounded shadow p-6 text-gray-700">No projects found for this user.</div>
+      <% } %>
+    </div>
+  </div>
+</body>
+
+</html>
+
