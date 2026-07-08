@@ -8,7 +8,13 @@
 
     <title>Dashboard</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <% const isProduction = process.env.NODE_ENV === 'production'; %>
+
+    <% if (!isProduction) { %>
+        <script src="https://cdn.tailwindcss.com"></script>
+    <% } else { %>
+        <link rel="stylesheet" href="/static/styles/tailwind.css" />
+    <% } %>
 
 
 </head>

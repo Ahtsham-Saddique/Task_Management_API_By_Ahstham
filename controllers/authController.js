@@ -94,46 +94,34 @@ const loginUser = async (req, res) => {
 
         const token = generateToken(user);
 
+        const isProduction = process.env.NODE_ENV === "production";
+
         res.cookie("token", token, {
-
             httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-
+            sameSite: isProduction ? "lax" : "strict",
+            secure: isProduction,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         res.status(200).json({
-
-        success: true,
-
-        message: "Login Successful",
-
-        role: user.role,
-
-        redirect:
-
-        user.role === "admin"
-
-            ? "/admin/dashboard"
-
-            : "/dashboard"
-
-         });
+            success: true,
+            message: "Login Successful",
+            role: user.role,
+            redirect: user.role === "admin" ? "/admin/dashboard" : "/dashboard",
+        });
 
     }
 
     catch (err) {
-
         console.log(err);
 
-       console.log(err);
+        const isProduction = process.env.NODE_ENV === "production";
+        const message = isProduction ? "Internal Server Error" : (err.message || "Internal Server Error");
 
-     res.status(500).json({
-        
-        success: false,
-        message: "Internal Server Error"
-
-      });
-
+        return res.status(500).json({
+            success: false,
+            message,
+        });
     }
 
 };

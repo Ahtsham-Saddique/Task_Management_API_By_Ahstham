@@ -1,0 +1,11 @@
+/*
+  Placeholder production stylesheet.
+  Replace this file with a real Tailwind build artifact (via Tailwind CLI / PostCSS) before going live.
+
+  This prevents runtime failures when switching away from cdn.tailwindcss.com.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

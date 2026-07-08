@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <% const isProduction = (process.env.NODE_ENV || '').toLowerCase() === 'production'; %>
+
+    <% if (!isProduction) { %>
+        <script src="https://cdn.tailwindcss.com"></script>
+    <% } else { %>
+        <link rel="stylesheet" href="/static/styles/tailwind.css" />
+    <% } %>
 </head>
 
 <body class="bg-gray-100">
