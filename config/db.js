@@ -5,9 +5,15 @@ const connectDB = async () => {
         return;
     }
 
-    try {
-        await mongoose.connect(process.env.MONGODB_URI);
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
+        const err = new Error("Server misconfigured: MONGODB_URI is not set");
+        err.status = 500;
+        throw err;
+    }
 
+    try {
+        await mongoose.connect(uri);
         console.log("MongoDB Connected Successfully");
     } catch (err) {
         console.error("Database Connection Failed");

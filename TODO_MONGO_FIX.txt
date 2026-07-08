@@ -1,0 +1,15 @@
+MongoDB Connection Failed (querySrv ENOTFOUND _mongodb._tcp.1234)
+
+Cause:
+- MONGODB_URI is malformed for mongodb+srv. You have an extra "@1234@" segment inside the URI.
+
+Fix:
+- Edit .env and set:
+  PORT=3000
+  JWT_SECRET=Sham123
+  MONGODB_URI=mongodb+srv://ahtshamsaddique55_db_user:Raja@cluster0.lqso3nv.mongodb.net/Task_Mng_API
+  (Remove ONLY the invalid "@1234@" part so the host becomes exactly cluster0.lqso3nv.mongodb.net)
+
+Then restart:
+- npm start
+

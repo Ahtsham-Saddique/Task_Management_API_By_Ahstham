@@ -4,11 +4,8 @@
     {
       "source": "/",
       "destination": "/register"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/api/index.js"
     }
   ]
 }
+
 
