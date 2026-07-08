@@ -21,9 +21,9 @@ const registerUser = async (req, res) => {
 
         }
 
-       const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-const user = await User.create({
+        const user = await User.create({
 
     username,
     name,
@@ -31,8 +31,7 @@ const user = await User.create({
     email,
     password: hashedPassword
 
-});
-        
+        });
 
         res.status(201).json({
 
@@ -48,12 +47,10 @@ const user = await User.create({
     catch (err) {
 
         console.log(err);
-
+        const message = err?.message || "Internal Server Error";
         res.status(500).json({
-
             success: false,
-            message: "Internal Server Error"
-
+            message,
         });
 
     }
@@ -113,10 +110,9 @@ const loginUser = async (req, res) => {
     }
 
     catch (err) {
-        console.log(err);
 
-        const isProduction = process.env.NODE_ENV === "production";
-        const message = isProduction ? "Internal Server Error" : (err.message || "Internal Server Error");
+        console.log(err);
+        const message = err?.message || "Internal Server Error";
 
         return res.status(500).json({
             success: false,
