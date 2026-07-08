@@ -35,7 +35,7 @@ app.use("/projects", projectRoutes);
 app.use("/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
-     res.redirect("/register");
+    res.send("Task Management API Running...");
 });
 
 app.get("/profile", authMiddleware, (req, res) => {
