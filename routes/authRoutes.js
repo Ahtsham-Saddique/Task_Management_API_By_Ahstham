@@ -11,7 +11,6 @@ const {
 
 const validate = require("../middleware/validate");
 
-
 // Register
 
 router.post(
@@ -25,7 +24,9 @@ router.post(
     authController.registerUser
 
 );
+
 router.post("/login", authController.loginUser);
+
 router.get("/register", (req, res) => {
 
     res.send("Register Route Working");
