@@ -1,9 +1,9 @@
 # TODO
 
-- [ ] Patch auth login error handling and token generation to surface real cause on Vercel (without exposing internals in production).
-- [ ] Replace Tailwind CDN usage with a production-safe approach (no `cdn.tailwindcss.com` in production).
-- [ ] Add minimal cookie hardening (sameSite/secure) if needed without breaking local auth.
-- [ ] (After deploy) Verify:
-  - [ ] POST /auth/login returns success or a meaningful error.
-  - [ ] UI loads Tailwind styles without CDN.
+- [x] Investigate Tailwind/CSS loading across pages.
+- [x] Inspect EJS templates: confirm Tailwind CDN inclusion.
+- [ ] Reproduce production console error root cause.
+- [x] Implement minimal frontend fix to prevent JS runtime crash on `/admin/dashboard`. (null checks in admin.js)
+- [ ] Verify `/admin/dashboard` and other pages styling after deployment.
+- [ ] Confirm no backend functionality touched and regression-free.
 

@@ -2,11 +2,14 @@ const usersContainer = document.getElementById("usersContainer");
 
 async function loadUsers() {
 
+    if (!usersContainer) return;
+
     const response = await fetch("/admin/users");
 
     const data = await response.json();
 
     usersContainer.innerHTML = "";
+
 
     data.users.forEach(user => {
 
@@ -61,10 +64,12 @@ loadUsers();
 async function renderProjects(projects) {
 
     const container = document.getElementById("projectsContainer");
+    if (!container) return;
 
     const projectsHint = document.getElementById("projectsHint");
 
     container.innerHTML = "";
+
 
     if (projectsHint) projectsHint.classList.add("hidden");
 
