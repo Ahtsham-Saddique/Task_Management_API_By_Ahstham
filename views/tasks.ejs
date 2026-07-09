@@ -8,13 +8,9 @@
 
     <title>Project Tasks</title>
 
-    <% const isProduction = (process.env.NODE_ENV || '').toLowerCase() === 'production'; %>
 
-    <% if (!isProduction) { %>
-        <script src="https://cdn.tailwindcss.com"></script>
-    <% } else { %>
-        <link rel="stylesheet" href="/static/styles/tailwind.css" />
-    <% } %>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
